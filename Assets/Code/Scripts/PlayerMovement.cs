@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
 
-    public float speed = 0;
+    public float speed;
     public GameObject bulletPrefab;
     public float bulletForce;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,23 +25,11 @@ public class PlayerMovement : MonoBehaviour
         float angle = Mathf.Atan2(moveVertical, moveHorizontal) * Mathf.Rad2Deg;
         Vector3 rotation = new Vector3(0, angle+90, 0);
         transform.eulerAngles = rotation;
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Shoot();
-        }
     }
 
-    void Shoot()
+    void OnShoot(InputValue value)
     {
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-
-        if (rb != null)
-        {
-        
-            rb.AddForce( new Vector2(1,1) * bulletForce, ForceMode2D.Impulse);
-        }
+        print("Shoot is called! (Space bar has been pressed)");
     }
+
 }
